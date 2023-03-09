@@ -77,7 +77,7 @@ class _loginState extends State<login> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.indigo)),
                         prefixIcon: Icon(Icons.lock_open, color: Colors.indigo),
-                        labelText: "PASSWORD",
+                        labelText: "PASSWORD1",
                         labelStyle:
                             TextStyle(color: Colors.indigo, fontSize: 18),
                         suffixIcon: IconButton(
