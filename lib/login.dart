@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project1/home_screen.dart';
+import 'package:project1/register.dart';
+import 'package:project1/status%20page.dart';
 
 class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);
@@ -17,6 +20,16 @@ class _loginState extends State<login> {
     // TODO: implement initState
     super.initState();
     passwordVisible = true;
+  }
+
+  final mobileno = TextEditingController();
+  final password = TextEditingController();
+
+  @override
+  void dispose() {
+    mobileno.dispose();
+    password.dispose();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -47,6 +60,7 @@ class _loginState extends State<login> {
                       horizontal: 15.0, vertical: 10.0),
                   child: TextField(
                     style: TextStyle(fontSize: 21),
+                    controller: mobileno,
                     cursorHeight: 0,
                     cursorWidth: 0,
                     decoration: InputDecoration(
@@ -67,6 +81,7 @@ class _loginState extends State<login> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 15.0, vertical: 10.0),
                   child: TextField(
+                    controller: password,
                     obscureText: passwordVisible,
                     style: TextStyle(fontSize: 21),
                     cursorHeight: 0,
@@ -77,7 +92,7 @@ class _loginState extends State<login> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.indigo)),
                         prefixIcon: Icon(Icons.lock_open, color: Colors.indigo),
-                        labelText: "PASSWORD1",
+                        labelText: "PASSWORD",
                         labelStyle:
                             TextStyle(color: Colors.indigo, fontSize: 18),
                         suffixIcon: IconButton(
@@ -110,7 +125,16 @@ class _loginState extends State<login> {
                       color: Colors.indigo,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (mobileno.text.isNotEmpty &&
+                            password.text.isNotEmpty &&
+                            mobileno.text.length == 10) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => status_page()));
+                        }
+                      },
                       child: Text(
                         "Login to account",
                         style: TextStyle(fontSize: 21, color: Colors.white),
@@ -127,7 +151,14 @@ class _loginState extends State<login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => home_screen(
+                                        pageindex: 1,
+                                      )));
+                        },
                         child: Text(
                           "Register",
                           style: TextStyle(fontSize: 17, color: Colors.indigo),
