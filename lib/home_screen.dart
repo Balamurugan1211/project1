@@ -20,6 +20,7 @@ class _home_screenState extends State<home_screen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final items = [Icon(Icons.login), Icon(Icons.app_registration)];
     setState(() {
       if (widget.pageindex != null) {
         _selectedindex = widget.pageindex;
@@ -28,21 +29,19 @@ class _home_screenState extends State<home_screen> {
     });
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.indigo,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.login), label: "LOGIN"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.app_registration), label: "REGISTER"),
-          ],
-          currentIndex: _selectedindex,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: false,
+        bottomNavigationBar: CurvedNavigationBar(
+          index: _selectedindex,
+          items: items,
+          buttonBackgroundColor: Colors.indigo,
+          animationDuration: Duration(milliseconds: 250),
           onTap: (index) {
             setState(() {
               _selectedindex = index;
             });
           },
+          height: height * 0.07,
+          backgroundColor: Colors.transparent,
+          color: Colors.black54,
         ),
         body: IndexedStack(
           index: _selectedindex,
