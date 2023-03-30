@@ -42,7 +42,7 @@ class _registerState extends State<register> {
   String perror2 = "";
 
   void registerUser() async {
-    var url = 'http://192.168.20.166/Auth/register.php';
+    var url = 'http://192.168.103.166/Auth/register.php';
     var response = await http.post(Uri.parse(url), body: {
       'username': username,
       'email': email,

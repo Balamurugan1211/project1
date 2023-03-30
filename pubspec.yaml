@@ -41,6 +41,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   curved_navigation_bar: ^1.0.3
   http: ^0.13.5
+  telephony:
+  percent_indicator:
 
 
 dev_dependencies:

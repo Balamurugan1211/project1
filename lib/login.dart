@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project1/home_screen.dart';
 import 'package:project1/register.dart';
+import 'package:project1/smsresponse.dart';
 import 'package:project1/status%20page.dart';
 import 'package:http/http.dart' as http;
+import 'package:telephony/telephony.dart';
 
 class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   bool passwordVisible = false;
+  final Telephony telephony = Telephony.instance;
 
   @override
   void initState() {
@@ -32,19 +36,37 @@ class _loginState extends State<login> {
   String psswd = "";
   String merror = "";
   String perror = "";
+  String code = "";
+  String message = "";
 
   void loginUser() async {
-    var url = 'http://192.168.20.166/Auth/login.php';
+    var url = 'http://192.168.103.166/Auth/login.php';
     var response = await http.post(Uri.parse(url), body: {
       'mob': mobno,
       'password': psswd,
     });
     print(response.body);
+
+    var rnd = new Random();
+    for (var i = 0; i < 6; i++) {
+      code = code + rnd.nextInt(9).toString();
+    }
+
     if (jsonDecode(response.body) == "Success") {
+      await telephony.sendSms(
+        to: mobno, // replace with the phone number you want to send the SMS to
+        message: code, // replace with the SMS message you want to send
+      );
+
       mobileno.clear();
       password.clear();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => status_page()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => smsresponse(
+                    code: code,
+                    mobno: mobno,
+                  )));
     }
   }
 

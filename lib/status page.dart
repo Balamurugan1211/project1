@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home_screen.dart';
+
 class status_page extends StatefulWidget {
   const status_page({Key? key}) : super(key: key);
 
@@ -35,6 +37,16 @@ class _status_pageState extends State<status_page> {
         centerTitle: true,
         backgroundColor: Colors.indigo,
         elevation: 10,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => home_screen(
+                          pageindex: 0,
+                        )));
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
